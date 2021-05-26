@@ -10,16 +10,20 @@ object DataCity {
         "#City3",
         "#City4",
         "#City5",
-        "#City6"
+        "#City6",
+        "#City7",
+        "#City8"
     )
 
     val imgCity = arrayOf(
-        R.drawable.ic_profile,
-        R.drawable.ic_profile,
-        R.drawable.ic_profile,
-        R.drawable.ic_profile,
-        R.drawable.ic_profile,
-        R.drawable.ic_profile
+        R.drawable.ic_hashtag,
+        R.drawable.ic_hashtag,
+        R.drawable.ic_hashtag,
+        R.drawable.ic_hashtag,
+        R.drawable.ic_hashtag,
+        R.drawable.ic_hashtag,
+        R.drawable.ic_hashtag,
+        R.drawable.ic_hashtag
     )
 
     val jumlah = arrayOf(
@@ -28,7 +32,9 @@ object DataCity {
         300,
         400,
         500,
-        600
+        600,
+        700,
+        800
     )
 
 
