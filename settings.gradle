@@ -1,0 +1,2 @@
+rootProject.name = "Sijora Apps"
+include ':app'
