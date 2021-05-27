@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wildan.sijoraapps.R
-import com.wildan.sijoraapps.data.DataCity
-import com.wildan.sijoraapps.data.ModelCity
+import com.wildan.sijoraapps.data.data.DataCity
+import com.wildan.sijoraapps.data.model.ModelCity
 import com.wildan.sijoraapps.databinding.FragmentCityBinding
 import com.wildan.sijoraapps.ui.adapter.AdapterCity
 

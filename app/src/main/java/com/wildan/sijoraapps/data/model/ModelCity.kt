@@ -1,4 +1,4 @@
-package com.wildan.sijoraapps.data
+package com.wildan.sijoraapps.data.model
 
 data class ModelCity(
     var imgCity: Int = 0,

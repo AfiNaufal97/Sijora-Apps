@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.wildan.sijoraapps.data.ModelCity
-import com.wildan.sijoraapps.databinding.FragmentCityBinding
+import com.wildan.sijoraapps.data.model.ModelCity
 import com.wildan.sijoraapps.databinding.ItemListBinding
 import com.wildan.sijoraapps.ui.activity.detail.DetailActivity
 

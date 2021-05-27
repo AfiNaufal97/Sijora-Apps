@@ -1,6 +1,7 @@
-package com.wildan.sijoraapps.data
+package com.wildan.sijoraapps.data.data
 
 import com.wildan.sijoraapps.R
+import com.wildan.sijoraapps.data.model.ModelCity
 
 object DataCity {
 
