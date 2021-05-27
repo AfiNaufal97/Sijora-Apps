@@ -4,24 +4,29 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_icon_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_icon_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SijoraApps">
-        <activity android:name=".ui.activity.analysis.AnalysisActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".ui.activity.detail.DetailActivity"/>
-        </activity>
-        <activity android:name=".ui.activity.detail.DetailActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".ui.activity.home.HomeActivity"/>
-        </activity>
-        <activity android:name=".ui.activity.home.HomeActivity">
+        <activity android:name=".ui.splash.SplashActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.analysis.AnalysisActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.detail.DetailActivity" />
+        </activity>
+        <activity android:name=".ui.activity.detail.DetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.home.HomeActivity" />
+        </activity>
+        <activity android:name=".ui.activity.home.HomeActivity" />
     </application>
 
 </manifest>
