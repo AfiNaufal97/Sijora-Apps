@@ -1,9 +1,11 @@
 package com.wildan.sijoraapps.ui.activity.detail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.wildan.sijoraapps.R
 import com.wildan.sijoraapps.databinding.ActivityDetailBinding
+import com.wildan.sijoraapps.ui.activity.analysis.AnalysisActivity
 
 class DetailActivity : AppCompatActivity() {
 
@@ -23,5 +25,11 @@ class DetailActivity : AppCompatActivity() {
 
         binding.tvDetailTitle.text = tagname
         binding.tvDetailCount.text = getString(R.string.count, count)
+        binding.btnAnalysis.setOnClickListener {
+            val intent = Intent(this, AnalysisActivity::class.java)
+            intent.putExtra(AnalysisActivity.EXTRA_TITLE, tagname)
+            intent.putExtra(AnalysisActivity.EXTRA_COUNT, count)
+            startActivity(intent)
+        }
     }
 }
