@@ -9,7 +9,7 @@ import retrofit2.http.Headers
 interface APIEndpoint {
 
     @GET("recent?max_results=10&query=macet jakarta")
-    @Headers("Authorization: Bearer AAAAAAAAAAAAAAAAAAAAAL7FPwEAAAAADsN8xfx4GV4qNa9auwJFwPuFMaQ%3Dm4FPJLHCpfzeyUbxOagYQC4JNSkTafirl10WFIwKVUmDPtGMoE")
+    @Headers("Authorization: Bearer AAAAAAAAAAAAAAAAAAAAAL7FPwEAAAAADsN8xfx4GV4qNa9auwJFwPuFMaQ%")
     fun getMasalahMacet():Call<MultipleData<Data>>
 
 }
