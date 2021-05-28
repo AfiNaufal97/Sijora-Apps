@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SiJora</string>
+    <string name="search">Search</string>
+    <string name="count">Count: %s</string>
+</resources>
