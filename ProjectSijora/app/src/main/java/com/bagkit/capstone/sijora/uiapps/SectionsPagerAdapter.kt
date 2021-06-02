@@ -10,18 +10,15 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
     override fun createFragment(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = TransportFragment()
-            1 -> fragment = CityFragment()
-            2 -> fragment = MedicalFragment()
-            3 -> fragment = ElectricFragment()
-            4 -> fragment = VoiceFragment()
-            5 -> fragment = EducationFragment()
+            0 -> fragment = CityFragment()
+            1 -> fragment = MedicalFragment()
+            2 -> fragment = EducationFragment()
         }
         return fragment as Fragment
     }
 
     override fun getItemCount(): Int {
-        return 6
+        return 3
     }
 
 }

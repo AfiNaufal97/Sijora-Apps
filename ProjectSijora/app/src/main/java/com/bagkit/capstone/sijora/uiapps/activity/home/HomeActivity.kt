@@ -26,11 +26,8 @@ class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
     companion object {
         private val TAB_IMG = intArrayOf(
-            R.drawable.ic_transport_white,
             R.drawable.ic_city_white,
             R.drawable.ic_medic_white,
-            R.drawable.ic_electric_white,
-            R.drawable.ic_voice_white,
             R.drawable.ic_school_white
         )
     }

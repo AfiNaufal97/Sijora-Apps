@@ -3,13 +3,18 @@ package com.bagkit.capstone.sijora.uiapps.activity.detail
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bagkit.capstone.sijora.R
+import com.bagkit.capstone.sijora.backend.modelapi.Data
 import com.bagkit.capstone.sijora.databinding.ActivityDetailBinding
 import com.bagkit.capstone.sijora.uiapps.activity.analysis.AnalysisActivity
+import com.bagkit.capstone.sijora.viewmodel.MainViewModel
+import com.bagkit.capstone.sijora.viewmodel.ViewModelFactory
 
 
 class DetailActivity : AppCompatActivity() {
 
+    private lateinit var viewModel : MainViewModel
     private lateinit var binding: ActivityDetailBinding
     companion object{
         const val EXTRA_TITLE = "extra_title"
@@ -21,16 +26,66 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val tagname = intent.getStringExtra(EXTRA_TITLE)
-        val count = intent.getStringExtra(EXTRA_COUNT)
+        val id = intent.getIntExtra("id", 0)
+        val nama = intent.getStringExtra("name")
 
-        binding.tvDetailTitle.text = tagname
-        binding.tvDetailCount.text = getString(R.string.count, count)
-        binding.btnAnalysis.setOnClickListener {
-            val intent = Intent(this, AnalysisActivity::class.java)
-            intent.putExtra(AnalysisActivity.EXTRA_TITLE, tagname)
-            intent.putExtra(AnalysisActivity.EXTRA_COUNT, count)
-            startActivity(intent)
+        setView(nama!!)
+        binding.tvDetailTitle.text = nama
+
+    }
+
+    private fun fetchData() {
+        viewModel.test()
+    }
+
+    private fun fetchDataMacet() {
+        viewModel.testMacet()
+    }
+
+    private fun observe() {
+        viewModel.getMyData().observe(this, {handleData(it)})
+    }
+
+    private fun observeMacet() {
+        viewModel.getMyDataMacet().observe(this, {handleDataMacet(it)})
+    }
+
+    private fun handleData(it: MutableList<Data>?) {
+        if(it != null ){
+            binding.tvDetailCount.text = it.size.toString()
         }
+    }
+
+    private fun handleDataMacet(it: MutableList<Data>?) {
+        if(it != null ){
+            binding.tvDetailCount.text = it.size.toString()
+        }
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(this, ViewModelFactory()).get(MainViewModel::class.java)
+    }
+
+    private fun setView(id: String) {
+        when(id){
+            "Sampah" ->{
+                setValueSampah()
+            }
+            "Macet" -> {
+                setValueMacet()
+            }
+        }
+    }
+
+    private fun setValueMacet() {
+        setupViewModel()
+        observeMacet()
+        fetchDataMacet()
+    }
+
+    private fun setValueSampah() {
+        setupViewModel()
+        observe()
+        fetchData()
     }
 }
