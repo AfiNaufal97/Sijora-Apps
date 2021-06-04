@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bagkit.capstone.sijora">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_icon"
@@ -9,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiJora">
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".register.Login"/>
-        <activity android:name=".register.Register"/>
-        <activity android:name=".uiapps.activity.home.HomeActivity"/>
+        <activity android:name=".uiapps.activity.add.AddActivity"/>
+        <activity android:name=".uiapps.activity.profile.ProfilleActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".register.Login" />
+        <activity android:name=".register.Register" />
+        <activity android:name=".uiapps.activity.home.HomeActivity" />
         <activity android:name=".uiapps.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".uiapps.activity.detail.DetailActivity"/>
-        <activity android:name=".uiapps.activity.analysis.AnalysisActivity"/>
+        <activity android:name=".uiapps.activity.detail.DetailActivity" />
+        <activity android:name=".uiapps.activity.analysis.AnalysisActivity" />
     </application>
 
 </manifest>

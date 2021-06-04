@@ -1,6 +1,5 @@
 package com.bagkit.capstone.sijora.backend.api
 
-import com.bagkit.capstone.sijora.backend.constanta.Constanta.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

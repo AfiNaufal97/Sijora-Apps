@@ -2,7 +2,6 @@ package com.bagkit.capstone.sijora.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bagkit.capstone.sijora.MainActivity
 import com.bagkit.capstone.sijora.backend.api.Retrofits
 import com.bagkit.capstone.sijora.backend.api.TwitterSearchApi
 
