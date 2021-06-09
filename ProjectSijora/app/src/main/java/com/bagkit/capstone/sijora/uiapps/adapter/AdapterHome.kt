@@ -3,15 +3,16 @@ package com.bagkit.capstone.sijora.uiapps.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bagkit.capstone.sijora.backend.modelapi.DataSijora
 import com.bagkit.capstone.sijora.databinding.ItemList2Binding
-import com.bagkit.capstone.sijora.register.model.DataQueryTag
+import com.bumptech.glide.Glide
 
-class AdapterHome(val data:ArrayList<DataQueryTag>):RecyclerView.Adapter<AdapterHome.HomeViewHolder>(){
+class AdapterHome(val data:List<DataSijora>):RecyclerView.Adapter<AdapterHome.HomeViewHolder>(){
 
     lateinit var getDataHastag:SetDataHashtag
 
     interface SetDataHashtag {
-        fun setDataHastag(data:DataQueryTag)
+        fun setDataHastag(data: DataSijora)
     }
 
     fun setValueHashtag(getDataHashtag: SetDataHashtag){
@@ -19,8 +20,11 @@ class AdapterHome(val data:ArrayList<DataQueryTag>):RecyclerView.Adapter<Adapter
     }
 
     inner class HomeViewHolder(val binding:ItemList2Binding):RecyclerView.ViewHolder(binding.root) {
-        fun bind(dataListHastag: DataQueryTag) {
-            binding.textViewTitle.text = dataListHastag.nameTag
+        fun bind(dataListHastag: DataSijora) {
+            Glide.with(binding.root)
+                .load("https://image.flaticon.com/icons/png/512/2946/2946209.png")
+                .into(binding.ivInput)
+            binding.textViewTitle.text = dataListHastag.input_mobile
         }
 
     }

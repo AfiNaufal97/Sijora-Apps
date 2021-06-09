@@ -1,19 +1,31 @@
 package com.bagkit.capstone.sijora.uiapps.activity.detail
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.provider.ContactsContract
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.bagkit.capstone.sijora.backend.modelapi.Data
+import com.bagkit.capstone.sijora.backend.modelapi.DataSijora
+import com.bagkit.capstone.sijora.backend.api.new.ObjectRetrofit
 import com.bagkit.capstone.sijora.databinding.ActivityDetailBinding
-import com.bagkit.capstone.sijora.viewmodel.MainViewModel
-import com.bagkit.capstone.sijora.viewmodel.ViewModelFactory
+import com.bagkit.capstone.sijora.register.model.DataQueryTag
+import com.bagkit.capstone.sijora.uiapps.activity.add.AddActivity
+import com.bagkit.capstone.sijora.uiapps.activity.analysis.AnalysisActivity
+import com.bagkit.capstone.sijora.uiapps.activity.home.HomeActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class DetailActivity : AppCompatActivity() {
 
-    private lateinit var viewModel : MainViewModel
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var firebaseReference:DatabaseReference
+    private lateinit var firebaseAuth:FirebaseAuth
     companion object{
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_COUNT = "extra_count"
@@ -24,150 +36,93 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val query = intent.getStringExtra("query")
-        val nama = intent.getStringExtra("name")
 
-        binding.tvDetailTitle.text = nama
-        setupViewModel(query.toString())
-        Toast.makeText(this, nama, Toast.LENGTH_SHORT).show()
-        setupViewModel(nama.toString())
-    }
+        firebaseAuth = FirebaseAuth.getInstance()
 
-    private fun setupViewModel(nama:String) {
-        viewModel = ViewModelProvider(this, ViewModelFactory()).get(MainViewModel::class.java)
-        viewModel.test(nama)
-        viewModel.getMyData().observe(this, {
-            handle(it)
-        })
-    }
+        if(firebaseAuth.currentUser!!.email == "naufal.setiawan92@gmail.com" || firebaseAuth.currentUser!!.email == "wildan@gmail.com" || firebaseAuth.currentUser!!.email == "bangkit2021@mail.com"){
+            setClickMenu(1)
+        }else{
+            setClickMenu(2)
+        }
 
-    private fun handle(it: MutableList<Data>?) {
-        if(it != null){
-            binding.tvDetailCount.text = it.size.toString()
+//        firebaseReference = FirebaseDatabase.getInstance().getReference("hastag")
+
+        val intent = intent.getParcelableExtra<DataSijora>("data")
+        binding.tvDetailTitle.text = intent!!.input_mobile
+
+        binding.imgViewBack.setOnClickListener {
+            onBackPressed().also {
+                finish()
+            }
+        }
+
+        binding.btnDeleteFloatDetail.setOnClickListener {
+            setDelete(intent)
+        }
+
+        binding.btnEditFloatDetail.setOnClickListener {
+            setEdit(intent)
+        }
+
+        binding.btnAnalysis.setOnClickListener {
+            Handler().postDelayed({
+                val dataSent = DataSijora(intent.id, intent.input_mobile, intent.output_negative, intent.output_positive)
+                startActivity(Intent(this, AnalysisActivity::class.java).putExtra("data", dataSent))
+                binding.progresToResult.visibility = View.GONE
+            },3000)
+            binding.progresToResult.visibility = View.VISIBLE
         }
     }
 
-//    private fun setView(id: String) {
-//        when(id){
-//            "Sampah" ->{
-//                setValueSampah()
-//            }
-//            "Macet" -> {
-//                setValueMacet()
-//            }
-//            "Krl" -> {
-//                setValueKrl()
-//            }
-//            "TransJakarta" -> {
-//                setValueTransJakarta()
-//            }
-//            "JpoJKT" -> {
-//                setValueJpoJakarta()
-//            }
-//            "Jalur Sepeda" -> {
-//                setValueJalurSepedaJakarta()
-//            }
-//
-//            "Jalur Pedestrian" -> {
-//                setValueJalurPedestrianJakarta()
-//            }
-//
-//            "Sekolah Offline" -> {
-////                setValueSekolahOnlineJakarta()
-//            }
-//        }
-//    }
-//
-//    private fun fetchData(id:Int) {
-//        when(id){
-//            1 -> viewModel.test()
-//            2 -> viewModel.testMacet()
-//            3 -> viewModel.testMyDataKrl()
-//            4 -> viewModel.testMyDataTransJakarta()
-//            5 -> viewModel.testMyDataJpoJakarta()
-//            6 -> viewModel.testMyJalurSepeda()
-//            7 -> viewModel.testMyJalurPedetrian()
-////            8 -> viewModel.testMyDataSekolahOffline()
-//        }
-//    }
-//
-//    private fun observe(id :Int) {
-//        when(id){
-//            1 ->  viewModel.getMyData().observe(this, {
-//                handleData(it)
-//            })
-//            2 ->  viewModel.getMyDataMacet().observe(this, {handleData(it)})
-//            3 ->  viewModel.getMyDataKrl().observe(this, {handleData(it)})
-//            4 ->  viewModel.getMyDataTransJakarta().observe(this, {handleData(it)})
-//            5 ->  viewModel.getMyDataJpoJakarta().observe(this, {handleData(it)})
-//            6 ->  viewModel.getMyDataJalurSepedaJakarta().observe(this, {handleData(it)})
-//            7 ->  viewModel.getMyDataJalurPedestrianJakarta().observe(this, {handleData(it)})
-////            8 ->  viewModel.getMyDataSekolahOfflineJakarta().observe(this, {handleData(it)})
-//        }
-//    }
-//
-//
-//    private fun handleData(it: MutableList<Data>?) {
-//            if (it != null) {
-//                binding.tvDetailCount.text = it.size.toString()
-//                val data = it
-//                binding.btnAnalysis.setOnClickListener {
-//                    for (i in data.indices) {
-//                        Log.d("tampil", data[i].text)
-//                    }
-//            }
-//        }
-//    }
-//
-//
-//    private fun setValueSampah() {
-//        setupViewModel()
-//        observe(1)
-//        fetchData(1)
-//    }
-//
-//    private fun setValueMacet() {
-//        setupViewModel()
-//        observe(2)
-//        fetchData(2)
-//    }
-//
-//    private fun setValueKrl() {
-//        setupViewModel()
-//        observe(3)
-//        fetchData(3)
-//    }
-//
-//    private fun setValueTransJakarta(){
-//        setupViewModel()
-//        observe(4)
-//        fetchData(4)
-//    }
-//
-//    private fun setValueJpoJakarta() {
-//       setupViewModel()
-//        observe(5)
-//        fetchData(5)
-//    }
-//
-//    private fun setValueJalurSepedaJakarta() {
-//       setupViewModel()
-//        observe(6)
-//        fetchData(6)
-//    }
-//
-//    private fun setValueJalurPedestrianJakarta() {
-//        setupViewModel()
-//        observe(7)
-//        fetchData(7)
-//    }
+    private fun setEdit(intent: DataSijora) {
+        val data = DataSijora(intent.id, intent.input_mobile, intent.output_negative, intent.output_positive)
+        startActivity(Intent(this, AddActivity::class.java)
+            .putExtra("id", 1)
+            .putExtra("data", data))
+    }
 
-//    private fun setValueSekolahOnlineJakarta() {
-//        setupViewModel()
-//        observe(8)
-//        fetchData(8)
-//    }
+    private fun setDelete(nama: DataSijora) {
+        ObjectRetrofit.api.deleteDataById(nama.id).enqueue(object: Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Toast.makeText(this@DetailActivity, "Sukses", Toast.LENGTH_SHORT).show()
+                Intent(this@DetailActivity, HomeActivity::class.java).apply {
+                    this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(this)
+                }
+            }
 
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@DetailActivity, "Sukses", Toast.LENGTH_SHORT).show()
+                Intent(this@DetailActivity, HomeActivity::class.java).apply {
+                    this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(this)
+                }
+            }
 
+        })
+    }
+
+    private fun setClickMenu(id:Int) {
+        when(id){
+            1 -> {
+                binding.btnMenuFloatDetail.setOnClickListener {
+                    binding.btnMenuFloatDetail.visibility = View.GONE
+                    binding.btnCloseFloatDetail.visibility = View.VISIBLE
+                    binding.btnEditFloatDetail.visibility = View.VISIBLE
+                    binding.btnDeleteFloatDetail.visibility = View.VISIBLE
+                }
+
+                binding.btnCloseFloatDetail.setOnClickListener {
+                    binding.btnCloseFloatDetail.visibility = View.GONE
+                    binding.btnEditFloatDetail.visibility = View.GONE
+                    binding.btnDeleteFloatDetail.visibility = View.GONE
+                    binding.btnMenuFloatDetail.visibility = View.VISIBLE
+                }
+            }
+            else -> {
+                binding.btnMenuFloatDetail.visibility = View.GONE
+            }
+        }
+    }
 
 }

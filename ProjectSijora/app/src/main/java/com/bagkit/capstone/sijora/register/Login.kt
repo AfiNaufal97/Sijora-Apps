@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bagkit.capstone.sijora.MainActivity
 import com.bagkit.capstone.sijora.databinding.ActivityLoginBinding
 import com.bagkit.capstone.sijora.uiapps.activity.home.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -26,9 +25,16 @@ class Login : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if(firebaseAuth.currentUser != null){
-            Intent(this, HomeActivity::class.java).apply{
-                this.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(this)
+            if(firebaseAuth.currentUser!!.email == "naufal.setiawan92@gmail.com" || firebaseAuth.currentUser!!.email == "wildan@gmail.com" || firebaseAuth.currentUser!!.email == "bangkit2021@mail.com") {
+                startActivity(Intent(this, HomeActivity::class.java)
+                    .putExtra("id", 1)).also {
+                        finish()
+                }
+            }else{
+                startActivity(Intent(this, HomeActivity::class.java)
+                    .putExtra("id", 2)).also {
+                    finish()
+                }
             }
         }
     }
@@ -61,9 +67,12 @@ class Login : AppCompatActivity() {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this){
                 task -> if(task.isSuccessful){
             Toast.makeText(this, "Berhasil Masuk", Toast.LENGTH_SHORT).show()
-            Intent(this, HomeActivity::class.java).apply {
-                this.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(this)
+            if(email == "naufal.setiawan92@gmail.com" || email == "wildan@gmail.com" || email == "bangkit2021@mail.com"){
+                startActivity(Intent(this, HomeActivity::class.java)
+                    .putExtra("id", 1))
+            }else{
+                startActivity(Intent(this, HomeActivity::class.java)
+                    .putExtra("id", 2))
             }
         }else{
             Toast.makeText(this, "Gagal Masuk", Toast.LENGTH_SHORT).show()

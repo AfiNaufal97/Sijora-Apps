@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import com.bagkit.capstone.sijora.databinding.ActivityProfilleBinding
 import com.bagkit.capstone.sijora.register.Login
-import com.bagkit.capstone.sijora.register.model.DataQueryTag
 import com.bagkit.capstone.sijora.register.model.DataUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -24,6 +23,12 @@ class ProfilleActivity : AppCompatActivity() {
         setContentView(binding.root)
         containerData = arrayListOf<DataUser>()
         setLogout()
+
+        binding.btnBack3.setOnClickListener {
+            onBackPressed().apply {
+                finish()
+            }
+        }
     }
 
     private fun setLogout(){
@@ -32,8 +37,10 @@ class ProfilleActivity : AppCompatActivity() {
             setFirebaseData(firebaseAuth.currentUser!!.uid)
             binding.btnLogout.setOnClickListener {
                 firebaseAuth.signOut()
-                startActivity(Intent(this, Login::class.java))
-                finish()
+                Intent(this, Login::class.java).apply {
+                    this.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(this)
+                }
             }
         }
     }
@@ -61,8 +68,8 @@ class ProfilleActivity : AppCompatActivity() {
 
     private fun setViewProfile(value: DataUser?) {
         if(value != null){
-            binding.tvNameProfile.text = value.name
-            binding.tvEmailProfile.text = value.email
+            binding.tvName.text = value.name
+            binding.tvName3.text = value.email
         }
     }
 }
